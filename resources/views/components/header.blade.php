@@ -3,10 +3,10 @@
         <nav class="flex items-center justify-end gap-4">
             @auth
                 <a
-                    href="{{ url('/dashboard') }}"
+                    href="{{ url('/urls') }}"
                     class="inline-block px-5 py-1.5 border-[#9ad268] hover:border-[#e1ef8e] border rounded-sm text-sm"
                 >
-                    Dashboard
+                    Shorten URL
                 </a>
             @else
                 <a
