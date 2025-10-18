@@ -40,7 +40,7 @@
                                 @method("DELETE")
                                 <button 
                                     type="submit" 
-                                    onclick="return confirm('Are you sure you want to delete this shorten UTL?');" 
+                                    onclick="return confirm('Are you sure you want to delete this shorten URL?');" 
                                     class="p-2 text-white bg-red-400 border-red-700 border rounded-tl-lg rounded-br-lg text-xs"
                                 >
                                     Delete
