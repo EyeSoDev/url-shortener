@@ -9,7 +9,7 @@
             <label class="font-semibold">
                 Username:
                 <input 
-                class="border-[#9ad268] hover:border-[#e1ef8e] border rounded-md p-2 w-full block mt-1 mb-5 placeholder:font-thin placeholder:text-gray-300 placeholder:text-sm"
+                class="border-[#9ad268] hover:border-[#e1ef8e] border rounded-md p-2 w-full block mt-1 mb-5 text-sm text-gray-600 font-thin placeholder:font-thin placeholder:text-gray-200 placeholder:text-sm"
                 type="text" 
                 name="username" 
                 value="{{ old('username') }}"
@@ -18,7 +18,7 @@
             <label class="font-semibold">
                 Password:
                 <input 
-                class="border-[#9ad268] hover:border-[#e1ef8e] border rounded-md p-2 w-full block mt-1 mb-8 placeholder:font-thin placeholder:text-gray-300 placeholder:text-sm"
+                class="border-[#9ad268] hover:border-[#e1ef8e] border rounded-md p-2 w-full block mt-1 mb-8 text-sm text-gray-600 font-thin placeholder:font-thin placeholder:text-gray-200 placeholder:text-sm"
                 type="password" 
                 name="password" 
                 value="{{ old('password') }}"
