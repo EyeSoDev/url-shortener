@@ -6,6 +6,9 @@
 
         <title>{{ config('app.name', 'URL Shotener') }}</title>
 
+        <!-- Logo -->
+        <link rel="icon" href="{{ asset('favicon-32x32.png') }}" type="image/png">
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
