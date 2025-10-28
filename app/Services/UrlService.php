@@ -3,11 +3,11 @@
 namespace App\Services;
 
 use App\Models\Url;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Contracts\Cache\Repository;
 
 class UrlService
 {
-  public function __construct(protected Url $url) {}
+  public function __construct(protected Url $url, protected Repository $cache) {}
 
   public function generateBackHalf()
   {
@@ -16,11 +16,9 @@ class UrlService
 
     do {
       $backHalf = str()->random(7);
-      Log::error("backhalf $backHalf");
 
       $countBackHalf = $this->url->where('back_half', $backHalf)->count();
 
-      Log::error("currentBackHalf ".$countBackHalf);
     } while($countBackHalf > 0);
 
     return $backHalf;
@@ -28,14 +26,18 @@ class UrlService
 
   public function handleRedirect($slug)
   {
-    $url = $this->url->where('back_half', $slug)->first();
+    $cacheKey = "slug:$slug";
 
-    if ($url) {
-      $redirectUrl = $url->destination_url;
-      $url->clicks++;
-      $url->save();
-    }
+    // cache 1 hour
+    $redirectUrl = $this->cache->remember($cacheKey, 3600, function () use ($slug) {
+        return $this->url->where('back_half', $slug)->value('destination_url');
+    });
 
     return $redirectUrl ?? null;
   }
+
+  public function increaseClick($slug) {
+    $this->url->where('back_half', $slug)->increment('clicks');
+  }
+
 }

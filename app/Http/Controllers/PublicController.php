@@ -2,21 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\IncreaseUrlClick;
 use App\Services\UrlService;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\Cache\Repository;
 
 class PublicController extends Controller
 {
-    public function __construct(protected UrlService $urlService) {}
+    public function __construct(protected UrlService $urlService, protected Repository $cache) {}
 
     public function redirect($slug)
     {
-        $redirectUrl = $this->urlService->handleRedirect($slug);
+        $cacheKey = "slug:$slug";
+
+        $redirectUrl = $this->cache->get($cacheKey);
+
+        if (!$redirectUrl) {
+            $redirectUrl = $this->urlService->handleRedirect($slug);
+        }
 
         if (empty($redirectUrl)) {
             abort(404); 
         }
 
-        return redirect($redirectUrl, 301);
+        IncreaseUrlClick::dispatch($slug)->afterResponse();
+
+        return redirect($redirectUrl);
     }
 }
