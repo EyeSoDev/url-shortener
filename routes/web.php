@@ -62,4 +62,6 @@ Route::middleware(['auth'])->group(function () {
     
 });
 
-Route::get('/{slug}', [PublicController::class, 'redirect'])->name('redirect');
+Route::middleware(['throttle:public-url'])->group(function () {
+    Route::get('/{slug}', [PublicController::class, 'redirect'])->name('redirect');
+});
